@@ -1,6 +1,6 @@
 package sharygin.konst.timemanager.interfaces;
 
-import sharygin.konst.timemanager.TaskStatus;
+import util.TaskStatus;
 
 public interface Taskable {
 	void startTask();

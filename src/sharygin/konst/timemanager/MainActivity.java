@@ -1,5 +1,11 @@
 package sharygin.konst.timemanager;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import sharygin.konst.timemanager.interfaces.Taskable;
+import util.CustomAdapter;
+import util.TaskStatus;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -9,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,16 +66,30 @@ public class MainActivity extends Activity {
 			View rootView = inflater.inflate(R.layout.fragment_main, container,
 					false);
 			
-			((TextView)rootView.findViewById(R.id.textView)).setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					Toast.makeText(getActivity(), "text to show", Toast.LENGTH_LONG).show();
-				}
-			});
+			ListView lv = (ListView)rootView.findViewById(R.id.lvTasks);
+			
+			List<Taskable> asd = populateList();
+			
+			
+			CustomAdapter ca = new CustomAdapter(container.getContext(), R.layout.task_view, asd);
+
+			lv.setAdapter(ca);
 			
 			return rootView;
+		}
+		
+		private List<Taskable> populateList(){
+			List<Taskable> list = new ArrayList<Taskable>();
+			
+			TimeTask tt1 = new TimeTask();
+			tt1.setTaskStatus(TaskStatus.STOPPED);
+			list.add(tt1);
+			
+			TimeTask tt2 = new TimeTask();
+			tt1.setTaskStatus(TaskStatus.RUNNING);
+			list.add(tt2);
+			
+			return list;
 		}
 	}
 

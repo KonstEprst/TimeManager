@@ -5,6 +5,7 @@ import java.util.List;
 
 import sharygin.konst.timemanager.interfaces.StatusChangeable;
 import sharygin.konst.timemanager.interfaces.Taskable;
+import util.TaskStatus;
 
 public class TimeTask implements Taskable{
 
@@ -33,7 +34,7 @@ public class TimeTask implements Taskable{
 		return status;
 	}
 	
-	private void setTaskStatus(TaskStatus value){
+	public void setTaskStatus(TaskStatus value){
 		if(status != value){
 			status = value;
 			fireStatusChanged();
@@ -52,4 +53,5 @@ public class TimeTask implements Taskable{
 	public void removeOnStatusChangedListener(StatusChangeable listener){
 		statusListeners.remove(listener);
 	}
+
 }

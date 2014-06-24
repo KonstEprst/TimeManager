@@ -7,4 +7,10 @@ public interface Taskable {
 	void stopTask();
 	void pauseTask();
 	TaskStatus getStatus();
+	
+	void addOnValueChangedListener(ValueChangeable listener);
+	void removeValueChangedListener(ValueChangeable listener);
+	
+	void addOnStatusChangedListener(StatusChangeable listener);
+	void removeOnStatusChangedListener(StatusChangeable listener);
 }

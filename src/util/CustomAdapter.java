@@ -4,6 +4,7 @@ import java.util.List;
 
 import sharygin.konst.timemanager.R;
 import sharygin.konst.timemanager.interfaces.Taskable;
+import sharygin.konst.timemanager.interfaces.ValueChangeable;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.NumberPicker;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.NumberPicker.OnValueChangeListener;
 
 public class CustomAdapter extends ArrayAdapter<Taskable> implements OnClickListener{
 
@@ -89,23 +93,43 @@ public class CustomAdapter extends ArrayAdapter<Taskable> implements OnClickList
 		
 	}
 	
-	private void PlayPauseClicked(View v){
+	private void PlayPauseClicked(View v) {
 		int pos = mParentListView.getPositionForView(v);
 		Taskable item = getItem(pos);
-		switch(item.getStatus()){
+		
+		
+		switch (item.getStatus()) {
 		case PAUSED:
 		case STOPPED:
 			item.startTask();
-			((ImageButton)v).setImageResource(android.R.drawable.ic_media_pause);
-			break;
+			((ImageButton) v)
+					.setImageResource(android.R.drawable.ic_media_pause);
 			
+			item.addOnValueChangedListener(new ValueChangeable() {
+				
+				@Override
+				public void onValueChange(long newValue) {
+					TextView tv = (TextView)mParentListView.getChildAt(pos).findViewById(R.id.timerText);
+					long hours = newValue / 60 / 60;
+					long minutes = newValue / 60;
+					long seconds = newValue % 60;
+					
+					tv.setText(hours + ":" + minutes + ":" + seconds);
+					
+				}
+			});
+			
+			break;
+
 		case RUNNING:
-			item.pauseTask();
-			((ImageButton)v).setImageResource(android.R.drawable.ic_media_play);
-			break;
 			
+			item.pauseTask();
+			((ImageButton) v)
+					.setImageResource(android.R.drawable.ic_media_play);
+			break;
+
 		}
-		
+
 		v.invalidate();
 		v.requestLayout();
 	}

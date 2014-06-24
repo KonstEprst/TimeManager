@@ -81,13 +81,20 @@ public class MainActivity extends Activity {
 		private List<Taskable> populateList(){
 			List<Taskable> list = new ArrayList<Taskable>();
 			
-			TimeTask tt1 = new TimeTask();
-			tt1.setTaskStatus(TaskStatus.STOPPED);
-			list.add(tt1);
+			list.add(new TimeTask());
+			list.add(new TimeTask());
+			list.add(new TimeTask());
 			
-			TimeTask tt2 = new TimeTask();
-			tt1.setTaskStatus(TaskStatus.RUNNING);
-			list.add(tt2);
+//			TimeTask tt1 = new TimeTask();
+//			tt1.setTaskStatus(TaskStatus.STOPPED);
+//			list.add(tt1);
+//			
+//			TimeTask tt2 = new TimeTask();
+//			tt1.setTaskStatus(TaskStatus.STOPPED);
+//			list.add(tt2);
+//			
+//			TimeTask tt3 = new TimeTask();
+//			list.add(tt3);
 			
 			return list;
 		}

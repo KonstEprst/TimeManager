@@ -94,7 +94,7 @@ public class CustomAdapter extends ArrayAdapter<Taskable> implements OnClickList
 	}
 	
 	private void PlayPauseClicked(View v) {
-		int pos = mParentListView.getPositionForView(v);
+		final int pos = mParentListView.getPositionForView(v);
 		Taskable item = getItem(pos);
 		
 		

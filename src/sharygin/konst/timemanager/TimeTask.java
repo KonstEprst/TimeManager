@@ -4,7 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Build.VERSION_CODES;
+import android.os.Debug;
 import android.os.Handler;
+import android.provider.Settings.System;
+import android.util.Log;
 import sharygin.konst.timemanager.interfaces.StatusChangeable;
 import sharygin.konst.timemanager.interfaces.Taskable;
 import sharygin.konst.timemanager.interfaces.ValueChangeable;
@@ -24,7 +29,14 @@ public class TimeTask implements Taskable{
 		setTaskStatus(TaskStatus.RUNNING);
 		
 		it = new InnerThread();
-		it.execute(time); 
+		
+		if(Build.VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB){
+			it.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, time);
+		} else {
+			it.execute(time);
+		}
+			
+		 
 	}
 
 	@Override
@@ -91,12 +103,16 @@ public class TimeTask implements Taskable{
 		protected Long doInBackground(Long... params) {
 			Long t = params[0];
 			
+			Log.d("Attention", "Entered AsyncTask");
+			
 			try {
 				while (!isCancelled()) {
 					Thread.sleep(1000);
 					publishProgress(t++);
 				}
-			} catch (InterruptedException ex) { }
+			} catch (InterruptedException ex) { 
+				Log.w("error", ex.getMessage());
+			}
 			
 			return t;
 		}

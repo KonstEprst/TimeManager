@@ -69,8 +69,8 @@ public class MainActivity extends Activity {
 			ListView lv = (ListView)rootView.findViewById(R.id.lvTasks);
 			
 			List<Taskable> asd = populateList();
-			
-			
+
+		
 			CustomAdapter ca = new CustomAdapter(container.getContext(), R.layout.task_view, asd);
 
 			lv.setAdapter(ca);
@@ -85,16 +85,6 @@ public class MainActivity extends Activity {
 			list.add(new TimeTask());
 			list.add(new TimeTask());
 			
-//			TimeTask tt1 = new TimeTask();
-//			tt1.setTaskStatus(TaskStatus.STOPPED);
-//			list.add(tt1);
-//			
-//			TimeTask tt2 = new TimeTask();
-//			tt1.setTaskStatus(TaskStatus.STOPPED);
-//			list.add(tt2);
-//			
-//			TimeTask tt3 = new TimeTask();
-//			list.add(tt3);
 			
 			return list;
 		}
